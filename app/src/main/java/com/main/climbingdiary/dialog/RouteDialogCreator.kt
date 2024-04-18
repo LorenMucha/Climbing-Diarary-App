@@ -36,6 +36,7 @@ import com.main.climbingdiary.models.Tabs
 import java.util.*
 import java.util.regex.Pattern
 
+@SuppressLint("ResourceAsColor")
 class RouteDialogCreator(
     val view: View,
     val context: Context,
@@ -54,6 +55,9 @@ class RouteDialogCreator(
         view.findViewById(R.id.input_route_comment)
     private var tries: EditText = view.findViewById(R.id.input_route_tries)
 
+    private var softBtn: Button = view.findViewById(R.id.input_route_soft_btn)
+    private var hardBtn: Button = view.findViewById(R.id.input_route_hard_btn)
+
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     private var gradeSwitcher: Switch = view.findViewById(R.id.grade_system_switcher)
     private var routeContent: LinearLayout = view.findViewById(R.id.route_content)
@@ -63,6 +67,14 @@ class RouteDialogCreator(
 
     init {
         setOnCloseButton()
+        softBtn.setOnClickListener {
+            hardBtn.setBackgroundResource(R.drawable.button_border)
+            it.setBackgroundColor(R.color.colorPrimary)
+        }
+        hardBtn.setOnClickListener {
+            softBtn.setBackgroundResource(R.drawable.button_border)
+            it.setBackgroundColor(R.color.colorPrimary)
+        }
     }
 
     @SuppressLint("SetTextI18n")

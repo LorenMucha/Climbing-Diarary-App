@@ -36,8 +36,8 @@
 
                 <TableRow
                     android:layout_width="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -73,8 +73,7 @@
                         android:id="@+id/input_route_tries"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="number"
-                        />
+                        android:inputType="number" />
 
                 </TableRow>
 
@@ -152,11 +151,47 @@
                 android:layout_marginEnd="15dp" />
         </RelativeLayout>
 
-        <Spinner
-            android:id="@+id/input_route_level"
-            android:layout_width="fill_parent"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp" />
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/input_route_level"
+                android:layout_width="0dp"
+                android:padding="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".70"
+                />
+
+            <Button
+                android:id="@+id/input_route_soft_btn"
+                android:background="@drawable/button_border"
+                android:bottomRightRadius="20dp"
+                android:bottomLeftRadius="20dp"
+                android:topLeftRadius="20dp"
+                android:topRightRadius="20dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".30"
+                android:layout_marginRight="5dp"
+                android:text="Soft" />
+
+            <Button
+                android:id="@+id/input_route_hard_btn"
+                android:background="@drawable/button_border"
+                android:bottomRightRadius="20dp"
+                android:bottomLeftRadius="20dp"
+                android:topLeftRadius="20dp"
+                android:topRightRadius="20dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".30"
+                android:text="Hard" />
+
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
@@ -185,9 +220,9 @@
             android:id="@+id/input_route_comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textMultiLine"
-            android:ems="10"
             android:autofillHints=""
+            android:ems="10"
+            android:inputType="textMultiLine"
             tools:ignore="LabelFor" />
 
 

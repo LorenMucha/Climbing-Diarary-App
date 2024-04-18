@@ -34,10 +34,9 @@ class ShowCaseProvider(private val context: Context) {
         AppPreferenceManager
             .getUsedFirstTime()
             .run {
-                /*if (this) {
+                if (this) {
                     setAlert()
-                }*/
-                setAlert()
+                }
             }.also {
                 AppPreferenceManager.setIsUsedFirstTime(false)
             }
