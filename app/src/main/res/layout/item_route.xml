@@ -46,6 +46,18 @@
                     android:textStyle="bold"
                     tools:ignore="SpUsage" />
 
+                <TextView
+                    android:id="@+id/route_soft_hard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/route_content"
+                    android:textStyle="bold"
+                    android:text=" "
+                    tools:ignore="SpUsage" />
+
+
                 <ImageView
                     android:id="@+id/route_style"
                     android:layout_width="wrap_content"

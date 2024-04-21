@@ -57,6 +57,8 @@ class RouteDialogCreator(
 
     private var softBtn: Button = view.findViewById(R.id.input_route_soft_btn)
     private var hardBtn: Button = view.findViewById(R.id.input_route_hard_btn)
+    private var softSelected: Boolean = false
+    private var hardSelected: Boolean = false
 
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     private var gradeSwitcher: Switch = view.findViewById(R.id.grade_system_switcher)
@@ -70,10 +72,14 @@ class RouteDialogCreator(
         softBtn.setOnClickListener {
             hardBtn.setBackgroundResource(R.drawable.button_border)
             it.setBackgroundColor(R.color.colorPrimary)
+            hardSelected = false
+            softSelected = true
         }
         hardBtn.setOnClickListener {
             softBtn.setBackgroundResource(R.drawable.button_border)
             it.setBackgroundColor(R.color.colorPrimary)
+            hardSelected = true
+            softSelected = false
         }
     }
 
@@ -95,6 +101,8 @@ class RouteDialogCreator(
         setRatingSpinner(projekt.rating!! - 1)
         SetDate(date, context)
         routeContent.visibility = View.GONE
+        softBtn.visibility = View.GONE
+        hardBtn.visibility = View.GONE
     }
 
     @SuppressLint("SetTextI18n")
@@ -125,6 +133,14 @@ class RouteDialogCreator(
             }
         }
 
+        if(route.hard == 1){
+            hardBtn.setBackgroundColor(R.color.colorPrimary)
+        }
+
+        if(route.soft == 1){
+            softBtn.setBackgroundColor(R.color.colorPrimary)
+        }
+
         // set the Spinner
         setRatingSpinner(route.rating!! - 1)
         SetDate(date, context)
@@ -147,6 +163,8 @@ class RouteDialogCreator(
     fun setUiElements(projekt: Boolean) {
         if (projekt) {
             routeContent.visibility = View.GONE
+            softBtn.visibility = View.GONE
+            hardBtn.visibility = View.GONE
         }
         setStilSpinner("RP")
         setLevelSpinner("8a", getLevelsFrench())
@@ -293,6 +311,8 @@ class RouteDialogCreator(
         newRoute.rating = this.rating.selectedItemPosition + 1
         newRoute.style = this.stil.selectedItem.toString()
         newRoute.tries = this.tries.text.toString().toIntOrNull()
+        newRoute.soft = if(this.softSelected) 1 else 0
+        newRoute.hard = if(this.hardSelected) 1 else 0
         return cleanRoute(newRoute) as Route
     }
 

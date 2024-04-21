@@ -50,11 +50,11 @@ class RoutesAdapter(routes: List<Route>) : Filterable,
         val areaText = route.area
         val sectorText = route.sector
         val commentString = route.comment
-        val tries = route.tries
 
         //create the html string for the route and sector
         val routeHtml = getRouteAndSectorString(areaText!!, sectorText!!)
-        val commentHtml = "<b>${StringManager.getStringForId(R.string.route_item_comment)}</b><br/>$commentString"
+        val commentHtml =
+            "<b>${StringManager.getStringForId(R.string.route_item_comment)}</b><br/>$commentString"
 
         // Set item views
         val routeName = viewHolder.nameTextView
@@ -74,8 +74,19 @@ class RoutesAdapter(routes: List<Route>) : Filterable,
         date.text = route.date
         level.text = gradeText
         level.setTextColor(Colors.getGradeColor(gradeText))
-        routeTries.text = "${route.tries.toString()} ${StringManager.getStringForId(R.string.dialog_tries_header)}"
-        routeTries.also { it.visibility = if(route.tries == null) View.INVISIBLE else View.VISIBLE }
+        routeTries.text =
+            "${route.tries.toString()} ${StringManager.getStringForId(R.string.dialog_tries_header)}"
+        routeTries.also {
+            it.visibility = if (route.tries == null) View.INVISIBLE else View.VISIBLE
+        }
+
+        viewHolder.softHardText.also {
+            if (route.soft == 1) {
+                it.text = "Soft";
+            } else if (route.hard == 1) {
+                it.text = "Hard"
+            }
+        }
 
         try {
             val drawable: Drawable? =
@@ -226,5 +237,6 @@ class RoutesAdapter(routes: List<Route>) : Filterable,
         var editButton: ImageButton = itemView.findViewById(R.id.route_edit)
         var removeButton: ImageButton = itemView.findViewById(R.id.route_delete)
         var triesTextView: TextView = itemView.findViewById(R.id.route_tries)
+        var softHardText: TextView = itemView.findViewById(R.id.route_soft_hard)
     }
 }
