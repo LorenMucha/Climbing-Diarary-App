@@ -2,14 +2,8 @@ package com.main.climbingdiary.common
 
 import android.app.Dialog
 import android.content.Context
-import android.content.DialogInterface
 import android.content.res.Configuration
-import android.util.Log
-import android.view.View
 import android.widget.ImageButton
-import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat
-import cn.pedant.SweetAlert.SweetAlertDialog
 import com.main.climbingdiary.R
 import com.main.climbingdiary.common.StringProvider.getString
 import com.main.climbingdiary.common.preferences.AppPreferenceManager

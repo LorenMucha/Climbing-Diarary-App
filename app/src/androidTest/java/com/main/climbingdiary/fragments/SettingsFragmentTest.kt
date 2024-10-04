@@ -108,7 +108,7 @@ internal class SettingsFragmentTest {
         clickBack()
         openTab(Tabs.ROUTEN)
         clickOn(R.id.showTimeSlider)
-        assertDisplayed(R.id.timeslider)
+        assertDisplayed(R.id.time_slider)
     }
 
     @Test

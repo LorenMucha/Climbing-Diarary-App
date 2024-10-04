@@ -5,6 +5,8 @@ on:
       - master
     tags:
       - 'v*'
+env:
+  version: v1.1.1
 
 jobs:
   apk:
@@ -21,7 +23,7 @@ jobs:
       - name: Build Signed APK
         uses: victorbnl/build-signed-apk@main
         with:
-          keystore: ${{ secrets.SIGNING_KEY }}
+          keystore_b64: ${{ secrets.SIGNING_KEY }}
           keystore_password: ${{ secrets.KEY_STORE_PASSWORD }}
           key_alias: ${{ secrets.ALIAS }}
           key_password: ${{ secrets.KEY_PASSWORD}}

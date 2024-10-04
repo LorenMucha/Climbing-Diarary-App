@@ -24,7 +24,7 @@ import com.main.climbingdiary.fragments.RouteProjectFragment
 import com.main.climbingdiary.fragments.StatisticFragment
 import com.main.climbingdiary.models.Tabs
 import com.main.climbingdiary.models.Tabs.Companion.stringToTabs
-import java.util.*
+import java.util.Objects
 
 object FragmentPager : TabLayout.OnTabSelectedListener {
 
@@ -32,7 +32,7 @@ object FragmentPager : TabLayout.OnTabSelectedListener {
     private const val viewLayout: Int = R.id.viewPager
     private const val layoutTabs: Int = R.id.tabLayout
     private val fragmentMap: Map<Tabs, RouteFragment> = mapOf(
-        Tabs.STATISTIK to StatisticFragment,
+        Tabs.STATISTIK to StatisticFragment(),
         Tabs.ROUTEN to RouteDoneFragment,
         Tabs.PROJEKTE to RouteProjectFragment
     )

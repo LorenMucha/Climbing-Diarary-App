@@ -113,6 +113,20 @@ object TaskRepository {
         return executeSqlTasks(arrayOf(SqlRouten.deleteProjekt(id)))
     }
 
+    fun cleanDatabase():Boolean{
+        val tasks = arrayOf(
+            "DELETE FROM routen_bouldern",
+            "DELETE FROM routen_klettern",
+            "DELETE FROM projekte_bouldern",
+            "DELETE FROM projekte_klettern",
+            "DELETE FROM gebiete_klettern",
+            "DELETE FROM gebiete_bouldern",
+            "DELETE FROM sektoren_bouldern",
+            "DELETE FROM sektoren_klettern"
+        )
+        return executeSqlTasks(tasks)
+    }
+
     @SuppressLint("Recycle")
     fun getCursor(sql: String): Cursor {
         return try {
@@ -130,7 +144,8 @@ object TaskRepository {
         return try {
             for (x in tasks) {
                 Log.d("Execute", x)
-                mDb.execSQL(String(x.toByteArray(), StandardCharsets.UTF_8))
+                val query = x.trimIndent()
+                mDb.execSQL(String(query.toByteArray(), StandardCharsets.UTF_8))
             }
             mDb.setTransactionSuccessful()
             true

@@ -24,7 +24,8 @@ object SqlRouten {
         if (routeType === RouteType.ROUTE) {
             when {
                 sort === RouteSort.DATE -> {
-                    sql = """SELECT r.id, r.name,g.name as gebiet,r.level,r.stil,r.rating, 
+                    sql =
+                        """SELECT r.id, r.name,g.name as gebiet,r.level,r.stil,r.rating, r.tries, r.soft, r.hard, 
                             | r.kommentar, strftime('%d.%m.%Y',r.date) as date, k.name as sektor 
                             | FROM ${getRoutenTableName()} r
                             | join ${SqlAreaSektoren.getAreaTableName()} g on g.id=r.gebiet 
@@ -32,9 +33,10 @@ object SqlRouten {
                             | group by r.id Order By r.date DESC
                         """.trimMargin()
                 }
+
                 sort === RouteSort.AREA -> {
                     sql =
-                        """SELECT r.id, r.name,g.name as gebiet,r.level,r.stil,r.rating, r.kommentar, 
+                        """SELECT r.id, r.name,g.name as gebiet,r.level,r.stil,r.rating, r.kommentar,  r.tries, r.soft, r.hard, 
                             | strftime('%d.%m.%Y',r.date) as date, k.name as sektor 
                             | FROM ${getRoutenTableName()} r
                             | join ${SqlAreaSektoren.getAreaTableName()} g on g.id=r.gebiet
@@ -43,9 +45,10 @@ object SqlRouten {
                             | group by r.id Order By g.name ASC
                         """.trimMargin()
                 }
+
                 else -> {
                     sql =
-                        """SELECT r.id, r.name,g.name as gebiet,r.level,r.stil,r.rating, r.kommentar, 
+                        """SELECT r.id, r.name,g.name as gebiet,r.level,r.stil,r.rating, r.kommentar, r.tries, r.soft, r.hard, 
                             | strftime('%d.%m.%Y',r.date) as date, k.name as sektor 
                             | FROM ${getRoutenTableName()} r
                             | join ${SqlAreaSektoren.getAreaTableName()} g on g.id=r.gebiet
@@ -80,7 +83,7 @@ object SqlRouten {
     }
 
     fun getRoute(id: Int): String {
-        return """SELECT r.id, r.name,g.name as gebiet,r.level,r.stil,r.rating, r.kommentar, 
+        return """SELECT r.id, r.name,g.name as gebiet,r.level,r.stil,r.rating, r.kommentar, r.tries, r.soft, r.hard, 
             | strftime('%d.%m.%Y',r.date) as date, k.name as sektor 
             | FROM ${getRoutenTableName()} r, 
             | ${SqlAreaSektoren.getAreaTableName()} g, 
@@ -89,7 +92,7 @@ object SqlRouten {
     }
 
     fun getProjekt(id: Int): String {
-        return """SELECT r.id, r.name,g.name as gebiet,r.level,r.rating, r.kommentar,
+        return """SELECT r.id, r.name,g.name as gebiet,r.level,r.rating, r.kommentar, 
              | k.name as sektor 
              | FROM ${getProjekteTableName()} r,
              | ${SqlAreaSektoren.getAreaTableName()} g, 
@@ -98,7 +101,7 @@ object SqlRouten {
     }
 
     fun getTopTenRoutes(year: Int): String {
-        return """Select r.level, r.stil, r.name, r.gebiet 
+        return """Select r.level, r.stil, r.name, r.gebiet
             | FROM ${getRoutenTableName()} r
             | where CAST(strftime('%Y',r.date) as int)==$year
             | Order By r.level desc, r.stil asc Limit 10""".trimMargin()
@@ -121,9 +124,9 @@ object SqlRouten {
                     | WHERE name='${route.area}'""".trimMargin()
         val insertRoute =
             """INSERT OR IGNORE INTO ${getRoutenTableName()}
-                | (date,name,level,stil,rating,kommentar,gebiet,sektor) 
+                | (date,name,level,stil,rating,kommentar,tries,soft, hard, gebiet,sektor) 
                 | SELECT '${route.date}','${route.name}','${route.level}',
-                | '${route.style}','${route.rating}','${route.comment}',a.id,s.id
+                | '${route.style}','${route.rating}','${route.comment}', '${route.tries}','${route.soft}','${route.hard}',a.id,s.id
                 | FROM ${SqlAreaSektoren.getAreaTableName()} a, ${SqlAreaSektoren.getSektorenTableName()} s
                 | WHERE a.name = '${route.area}'
                 | AND s.name='${route.sector}'""".trimMargin()
@@ -159,7 +162,10 @@ object SqlRouten {
                     | sektor = '${route.sector}',
                     | stil = '${route.style}',
                     | rating = '${route.rating}',
-                    | kommentar = '${route.comment}'
+                    | kommentar = '${route.comment}' ,
+                    | tries = '${route.tries}',
+                    | soft = '${route.soft}',
+                    | hard = '${route.hard}'
                     | where id =${route.id}
                     """.trimMargin()
     }

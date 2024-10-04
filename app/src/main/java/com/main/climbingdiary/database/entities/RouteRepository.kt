@@ -38,14 +38,6 @@ class RouteRepository<T : RouteElement>(private val klass: KClass<T>) {
         return routes
     }
 
-    fun getListByArea(areaId: Int): ArrayList<T> {
-        AppPreferenceManager.setFilterSetter(MenuValues.FILTER)
-        AppPreferenceManager.setFilter(String.format("g.id = %s", areaId))
-        val routes = getRouteList()
-        AppPreferenceManager.removeAllFilterPrefs()
-        return routes
-    }
-
     fun deleteRoute(routeElement: RouteElement): Boolean {
         return if (routeElement is Projekt) {
             TaskRepository.deleteProjekt(routeElement.id)
@@ -64,6 +56,7 @@ class RouteRepository<T : RouteElement>(private val klass: KClass<T>) {
         }
     }
 
+    //Fixme: Method is to big
     fun updateRoute(toUpdate: RouteElement): Boolean {
 
         var area = Area(name = toUpdate.area!!)
@@ -91,12 +84,18 @@ class RouteRepository<T : RouteElement>(private val klass: KClass<T>) {
             )!!.id.toString()
         }
 
-        return if (toUpdate is Route) {
-            TaskRepository.updateRoute(toUpdate)
-        } else if (toUpdate is Projekt) {
-            TaskRepository.insertProjekt(toUpdate)
-        } else {
-            false
+        return when (toUpdate) {
+            is Route -> {
+                TaskRepository.updateRoute(toUpdate)
+            }
+
+            is Projekt -> {
+                TaskRepository.insertProjekt(toUpdate)
+            }
+
+            else -> {
+                false
+            }
         }
     }
 }
