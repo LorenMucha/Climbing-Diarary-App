@@ -35,6 +35,6 @@ object AppFloatingActionButton : View.OnClickListener {
 
 
     override fun onClick(v: View?) {
-        getSelectedTabsTitle()?.let { DialogFactory.openAddRouteDialog(it) }
+        getSelectedTabsTitle().let { DialogFactory.openAddRouteDialog(it) }
     }
 }

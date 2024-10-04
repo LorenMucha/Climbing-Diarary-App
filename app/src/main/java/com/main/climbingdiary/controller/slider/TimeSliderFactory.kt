@@ -7,7 +7,7 @@ import com.main.climbingdiary.models.TimeRange
 
 object TimeSliderFactory {
 
-    private val sliderMap = mapOf(
+    private val sliderMap = mapOf<TimeRange, ISlider>(
         TimeRange.YEAR to TimeSlider(),
         TimeRange.RANGE to TimeRangeSlider()
     )
@@ -15,7 +15,7 @@ object TimeSliderFactory {
     fun setSlider(){
         hideAllSlider()
         val setting = AppPreferenceManager.getTimeSliderView()
-        val slider =  sliderMap[setting]
+        val slider: ISlider? =  sliderMap[setting]
         slider!!.setTimesRange()
         slider.show()
     }

@@ -1,39 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorPrimaryDark"
     android:padding="10dp">
 
     <LinearLayout
+        android:id="@+id/sliderLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/sliderLinearLayout"
         android:orientation="horizontal">
-        <com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar
-            android:visibility="gone"
+
+        <com.google.android.material.slider.RangeSlider
             android:id="@+id/timerange"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:bar_color="@color/white"
-            app:bar_highlight_color="@color/blue_btn_bg_color"
-            app:left_thumb_color="@color/white"
-            app:left_thumb_color_pressed="@color/blue_btn_bg_pressed_color"
-            app:right_thumb_color="@color/white"
-            app:right_thumb_color_pressed="@color/blue_btn_bg_pressed_color" />
+            android:stepSize="1"
+            android:visibility="gone" />
 
-        <com.crystal.crystalrangeseekbar.widgets.CrystalSeekbar
-            android:visibility="gone"
-            android:id="@+id/timeslider"
+        <com.google.android.material.slider.Slider
+            android:id="@+id/time_slider"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:bar_color="@color/white"
-            app:bar_highlight_color="@color/blue_btn_bg_color"
-            app:left_thumb_color="@color/white"
-            app:left_thumb_color_pressed="@color/blue_btn_bg_pressed_color"
-            app:right_thumb_color="@color/white"
-            app:right_thumb_color_pressed="@color/blue_btn_bg_pressed_color" />
+            android:stepSize="1"
+            android:visibility="gone" />
     </LinearLayout>
 
     <TextView
@@ -44,17 +36,19 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
         android:textColor="@color/white"
-        android:textSize="@dimen/route_date" />
+        android:textSize="@dimen/route_date"
+        tools:ignore="SpUsage" />
 
     <TextView
         android:id="@+id/textMax"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/sliderLinearLayout"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="10dp"
         android:textColor="@color/white"
-        android:textSize="@dimen/route_date" />
+        android:textSize="@dimen/route_date"
+        tools:ignore="SpUsage" />
 
 </RelativeLayout>

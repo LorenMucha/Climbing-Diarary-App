@@ -1,14 +1,12 @@
 package com.main.climbingdiary.controller.slider
 
-import android.annotation.SuppressLint
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.crystal.crystalrangeseekbar.interfaces.OnSeekbarChangeListener
-import com.crystal.crystalrangeseekbar.interfaces.OnSeekbarFinalValueListener
-import com.crystal.crystalrangeseekbar.widgets.CrystalSeekbar
+import com.google.android.material.slider.Slider
+import com.google.android.material.slider.Slider.OnSliderTouchListener
 import com.main.climbingdiary.R
 import com.main.climbingdiary.activities.MainActivity
 import com.main.climbingdiary.common.preferences.AppPreferenceManager
@@ -16,29 +14,26 @@ import com.main.climbingdiary.controller.FragmentPager.refreshSelectedFragment
 import com.main.climbingdiary.controller.button.ShowTimeSlider.hideButton
 import com.main.climbingdiary.database.TaskRepository.getYears
 import com.main.climbingdiary.models.MenuValues
-import java.util.*
-import kotlin.collections.ArrayList
+import java.util.Collections
 
-@SuppressLint("StaticFieldLeak")
-class TimeSlider : OnSeekbarChangeListener, OnSeekbarFinalValueListener, Slider {
+class TimeSlider : ISlider, OnSliderTouchListener {
     private val activity: AppCompatActivity by lazy { MainActivity.getMainActivity() }
-    private val timeSeekbar: CrystalSeekbar = activity.findViewById(R.id.timeslider)
+    private val slider: Slider = activity.findViewById(R.id.time_slider)
     private val minText: TextView = activity.findViewById(R.id.textMin)
     private val maxText: TextView = activity.findViewById(R.id.textMax)
     private val times: ArrayList<Int>
 
     init {
-        timeSeekbar.setOnSeekbarChangeListener(this)
-        timeSeekbar.setOnSeekbarFinalValueListener(this)
+        slider.addOnSliderTouchListener(this)
         times = initTimes()
     }
 
     override fun show() {
-        timeSeekbar.visibility = View.VISIBLE
+        slider.visibility = View.VISIBLE
     }
 
     override fun hide() {
-        timeSeekbar.visibility = View.GONE
+        slider.visibility = View.GONE
     }
 
     override fun initTimes(): ArrayList<Int> {
@@ -56,11 +51,9 @@ class TimeSlider : OnSeekbarChangeListener, OnSeekbarFinalValueListener, Slider 
             Log.d("Years set", TextUtils.join(",", times))
             val minYear = Collections.min(times).toFloat()
             val maxYear = Collections.max(times).toFloat()
-            timeSeekbar.minValue = minYear
-            timeSeekbar.maxValue = maxYear
-            timeSeekbar.minStartValue = maxYear
-            timeSeekbar.minStartValue = maxYear
-            timeSeekbar.apply()
+            slider.valueFrom = minYear
+            slider.valueTo = maxYear
+            slider.value = maxYear
             minText.text = minYear.toInt().toString()
             maxText.text = maxYear.toInt().toString()
         } catch (ex: Exception) {
@@ -68,12 +61,13 @@ class TimeSlider : OnSeekbarChangeListener, OnSeekbarFinalValueListener, Slider 
         }
     }
 
-    override fun valueChanged(value: Number?) {
-        maxText.text = value.toString()
+    override fun onStartTrackingTouch(slider: Slider) {
+        minText.text = slider.value.toInt().toString()
     }
 
-    override fun finalValue(value: Number?) {
-        val min = value.toString()
+    override fun onStopTrackingTouch(slider: Slider) {
+        minText.text = slider.value.toInt().toString()
+        val min = slider.value.toString()
         val filter = "CAST(strftime('%Y',r.date) as int)==$min"
         AppPreferenceManager.setFilterSetter(MenuValues.SORT_DATE)
         AppPreferenceManager.setFilter(filter)

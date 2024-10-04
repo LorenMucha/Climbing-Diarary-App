@@ -36,7 +36,7 @@ class AppBarMenu(val menu: Menu) : SearchView.OnQueryTextListener {
         // Fill the Menu for Filtering
         var i = 2
         for (areaName in repo.getAreaNameList()) {
-            menu.findItem(R.id.filter_area).subMenu.add(
+            menu.findItem(R.id.filter_area).subMenu?.add(
                 R.id.filter_area + 1,
                 i + R.id.filter_area,
                 Menu.NONE,

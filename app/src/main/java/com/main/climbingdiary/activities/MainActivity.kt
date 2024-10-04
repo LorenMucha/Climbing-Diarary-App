@@ -58,6 +58,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         val drawer = findViewById<DrawerLayout>(R.id.nav_drawer_layout)
         if (drawer.isDrawerOpen(GravityCompat.START)) {

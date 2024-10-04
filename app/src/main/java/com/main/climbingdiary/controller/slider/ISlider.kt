@@ -1,6 +1,6 @@
 package com.main.climbingdiary.controller.slider
 
-interface Slider {
+interface ISlider {
    fun initTimes():ArrayList<Int>
    fun setTimesRange()
    fun show()
