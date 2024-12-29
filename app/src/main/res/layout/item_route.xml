@@ -55,7 +55,7 @@
                     android:textSize="@dimen/route_content"
                     android:textStyle="bold"
                     android:text=" "
-                    tools:ignore="SpUsage" />
+                    tools:ignore="HardcodedText,SpUsage" />
 
 
                 <ImageView
@@ -85,7 +85,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
                     android:layout_marginStart="5dp"
-                    android:layout_span="7"
+                    android:layout_span="8"
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:textColor="@color/coveredFontColor"
@@ -116,9 +116,9 @@
                 <RelativeLayout
                     android:id="@+id/route_layout_hidden"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_span="8">
+                    android:layout_height="match_parent"
+                    android:layout_span="9"
+                    tools:ignore="UselessParent">
 
                     <View
                         android:id="@+id/edit_hr"
@@ -146,6 +146,7 @@
                         android:layout_marginTop="5dp"
                         android:textColor="@color/black"
                         android:textSize="@dimen/route_date"
+                        android:textStyle="bold"
                         android:layout_alignParentEnd="true"
                         android:visibility="invisible"
                         android:id="@+id/route_tries"
@@ -170,7 +171,7 @@
 
                     <View
                         android:id="@+id/edit_hr2"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="2dip"
                         android:layout_below="@+id/route_comment"
                         android:background="@color/backgroundColorPrimary" />
@@ -184,6 +185,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_toStartOf="@id/route_delete"
                         android:background="@color/buttonColor"
+                        android:contentDescription="TODO"
                         android:paddingEnd="30dp"
                         android:src="@drawable/ic_pen"
                         tools:ignore="RtlSymmetry" />
@@ -197,6 +199,7 @@
                         android:layout_margin="5dp"
                         android:layout_marginTop="5dp"
                         android:background="@color/buttonColor"
+                        android:contentDescription="TODO"
                         android:src="@drawable/ic_trash" />
 
                 </RelativeLayout>

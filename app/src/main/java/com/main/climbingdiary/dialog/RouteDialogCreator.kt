@@ -70,15 +70,26 @@ class RouteDialogCreator(
     init {
         setOnCloseButton()
         softBtn.setOnClickListener {
-            hardBtn.setBackgroundResource(R.drawable.button_border)
-            it.setBackgroundColor(R.color.colorPrimary)
+            softSelected = if (softSelected) {
+                it.setBackgroundResource(R.drawable.button_border)
+                false
+            } else {
+                hardBtn.setBackgroundResource(R.drawable.button_border)
+                it.setBackgroundColor(R.color.colorPrimary)
+                true
+            }
             hardSelected = false
-            softSelected = true
         }
+
         hardBtn.setOnClickListener {
-            softBtn.setBackgroundResource(R.drawable.button_border)
-            it.setBackgroundColor(R.color.colorPrimary)
-            hardSelected = true
+            hardSelected = if (hardSelected) {
+                it.setBackgroundResource(R.drawable.button_border)
+                false
+            } else {
+                softBtn.setBackgroundResource(R.drawable.button_border)
+                it.setBackgroundColor(R.color.colorPrimary)
+                true
+            }
             softSelected = false
         }
     }
@@ -133,11 +144,11 @@ class RouteDialogCreator(
             }
         }
 
-        if(route.hard == 1){
+        if (route.hard == 1) {
             hardBtn.setBackgroundColor(R.color.colorPrimary)
         }
 
-        if(route.soft == 1){
+        if (route.soft == 1) {
             softBtn.setBackgroundColor(R.color.colorPrimary)
         }
 
@@ -287,7 +298,7 @@ class RouteDialogCreator(
         nameHeader.text = "Name"
     }
 
-    private fun hideTriesView(){
+    private fun hideTriesView() {
 
     }
 
@@ -311,8 +322,8 @@ class RouteDialogCreator(
         newRoute.rating = this.rating.selectedItemPosition + 1
         newRoute.style = this.stil.selectedItem.toString()
         newRoute.tries = this.tries.text.toString().toIntOrNull()
-        newRoute.soft = if(this.softSelected) 1 else 0
-        newRoute.hard = if(this.hardSelected) 1 else 0
+        newRoute.soft = if (this.softSelected) 1 else 0
+        newRoute.hard = if (this.hardSelected) 1 else 0
         return cleanRoute(newRoute) as Route
     }
 
